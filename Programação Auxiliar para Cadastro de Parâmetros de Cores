@@ -1,0 +1,100 @@
+//Pinos de conexao do modulo
+const int S0 = 5;
+const int S1 = 6;
+const int S2 = 8;
+const int S3 = 9;
+const int OUT = 10;
+
+//Pinos do led RGB
+int pinoledverm = 2;
+int pinoledverd = 3;
+int pinoledazul = 4;
+
+//Variaveis cores
+int vermelho = 0;
+int verde = 0;
+int azul = 0;
+
+void setup()
+{
+  pinMode(S0, OUTPUT);
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  pinMode(OUT, INPUT);
+  pinMode(pinoledverm, OUTPUT);
+  pinMode(pinoledverd, OUTPUT);
+  pinMode(pinoledazul, OUTPUT);
+  Serial.begin(9600);
+  digitalWrite(S0, HIGH);
+  digitalWrite(S1, LOW);
+}
+
+void loop()
+{
+  //Detecta a cor
+  color();
+  //Mostra valores no serial monitor
+  Serial.print("Vermelho :");
+  Serial.print(vermelho, DEC);
+  Serial.print(" Verde : ");
+  Serial.print(verde, DEC);
+  Serial.print(" Azul : ");
+  Serial.print(azul, DEC);
+  Serial.println();
+
+  //Verifica se a cor vermelha foi detectada
+  if (vermelho < 15 && azul > 10 && verde > 10)
+  {
+    Serial.println("Vermelho");
+    digitalWrite(pinoledverm, LOW); //Acende o led vermelho
+    digitalWrite(pinoledverd, HIGH);
+    digitalWrite(pinoledazul, HIGH);
+  }
+
+  //Verifica se a cor azul foi detectada
+  else if (verde > 10 && vermelho > 10 && azul < 15)
+  {
+    Serial.println("Azul");
+    digitalWrite(pinoledverm, HIGH);
+    digitalWrite(pinoledverd, HIGH);
+    digitalWrite(pinoledazul, LOW); //Acende o led azul
+  }
+
+  //Verifica se a cor verde foi detectada
+  else if (verde < 15 && azul > 10 && vermelho > 10)
+  {
+    Serial.println("Verde");
+    digitalWrite(pinoledverm, HIGH);
+    digitalWrite(pinoledverd, LOW); //Acende o led verde
+    digitalWrite(pinoledazul, HIGH);
+  }
+
+  else if (verde < 13 && azul < 13 && vermelho < 13)
+  {
+    Serial.println("Amarelo");
+    digitalWrite(pinoledverm, HIGH);
+    digitalWrite(pinoledverd, LOW); //Acende o led verde
+    digitalWrite(pinoledazul, HIGH);
+  }
+
+  Serial.println();
+
+  //Delay para apagar os leds e reiniciar o processo
+  delay(500);
+}
+
+void color()
+{
+  //Rotina que le o valor das cores
+  digitalWrite(S2, LOW);
+  digitalWrite(S3, LOW);
+  //count OUT, pvermelho, vermelho
+  vermelho = pulseIn(OUT, digitalRead(OUT) == HIGH ? LOW : HIGH);
+  digitalWrite(S3, HIGH);
+  //count OUT, pazul, azul
+  azul = pulseIn(OUT, digitalRead(OUT) == HIGH ? LOW : HIGH);
+  digitalWrite(S2, HIGH);
+  //count OUT, pverde, verde
+  verde = pulseIn(OUT, digitalRead(OUT) == HIGH ? LOW : HIGH);
+}
