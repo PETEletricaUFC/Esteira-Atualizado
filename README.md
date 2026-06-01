@@ -1,2 +1,2 @@
 # Esteira-Atualizado
-Esteira automática com objetivo de realizar a contagem e identificação de peças através de uma sensor de cor e um sensor infravermelho, e demonstrar esses valores através de um diplay OLED
+Este foi o projeto ÁREAS 2025: Esteira automática com objetivo de realizar a contagem e identificação de peças através de uma sensor de cor e um sensor infravermelho, e demonstrar esses valores através de um diplay OLED, pode ser apresentado como um sistema simplificado do meio de produção, demonstrando as etapas de contagem e identificação, sem demonstração para a parte de separação.
