@@ -49,6 +49,8 @@ void setup()
 
   digitalWrite(S0, HIGH);
   digitalWrite(S1, LOW);
+
+  analogWrite(Motor, 100);
 }
 
 void loop() 
